@@ -170,6 +170,9 @@ MonoBehaviour:
   beeRigigdoby: {fileID: 0}
   speed: 3
   bouceForce: 10
+  randomSpeed: 5
+  randomFlyDuration: 3
+  randomFlyTimer: 0
   gameManager: {fileID: 0}
 --- !u!50 &3270118039661719422
 Rigidbody2D:

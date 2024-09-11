@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
             polygonCollider2D.SetPath(0, polygonPoints.ToArray());
              lineRigibody2D.bodyType = RigidbodyType2D.Dynamic;
             StartCoroutine(BeeSpawn());
+            StartCoroutine(CountDown());
         }
     }
     void UpdateLineRenderer()
@@ -186,5 +187,11 @@ public class GameManager : MonoBehaviour
             beeCount++;
             yield return new WaitForSeconds(0.2f);
         }
+    }
+    IEnumerator CountDown()
+    {
+       yield return new WaitForSeconds(10f);
+       buttonGroup.gameObject.SetActive(true);
+       nextLevel.gameObject.SetActive(true);
     }
 }
