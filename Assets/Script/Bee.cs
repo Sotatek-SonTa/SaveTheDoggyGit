@@ -6,7 +6,7 @@ public class Bee : MonoBehaviour
 {
     public Transform doghead;
     public Rigidbody2D beeRigigdoby;
-    public float speed = 5f;
+    public float speed = 2f;
     public float bouceForce = 10f;
     private bool isFlyingToDog = false;
      public float randomSpeed = 2f;
@@ -49,6 +49,7 @@ public class Bee : MonoBehaviour
        // transform.rotation = Quaternion.Euler(new Vector3(0,0,angle));
     }
     void FlyTowardDog(){
+    beeRigigdoby.velocity = Vector2.zero;
      Vector2 directiontoDog = (doghead.transform.position - gameObject.transform.position).normalized;
      float angle = Mathf.Atan2(directiontoDog.y, directiontoDog.x) * Mathf.Rad2Deg;
      transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));

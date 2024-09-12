@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Dog
   - Line
+  - Obstacle
   layers:
   - Default
   - TransparentFX

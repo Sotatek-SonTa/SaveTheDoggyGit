@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     private List<Vector2> polygonPoints = new List<Vector2>();
     private List<Vector2> points = new List<Vector2>();
     public GameObject bee;
+    public GameObject dogHead;
+    public Rigidbody2D dogHeadRigidbody;
     public List<GameObject> beeList;
     public GameObject beeHive;
     public int levelIndex = 0;
@@ -23,6 +25,8 @@ public class GameManager : MonoBehaviour
     public Button tryAgain;
     public TextMeshProUGUI announcer;
     public Canvas buttonGroup;
+    private bool isBlocked = false;
+    private Vector2 lastValidPoint;
     void Start()
     {
         polygonCollider2D = lineRender.GetComponent<PolygonCollider2D>();
@@ -39,28 +43,51 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         beeHive = GameObject.Find("Stup");
+        dogHead = GameObject.Find("Doghead");
+        dogHeadRigidbody = dogHead.GetComponent<Rigidbody2D>();
         if (!levelManager.doneDrawing)
         {
             if (Input.GetMouseButtonDown(0))
-            {
+            {  
                     points.Clear();
                     polygonPoints.Clear();
                     lineRender.positionCount = 0;
                     polygonCollider2D.pathCount = 0;
+                    isBlocked = false;
             }
             if (Input.GetMouseButton(0))
+            {       
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+              
+            if (isBlocked) 
             {
-                    Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                if (CanResumeDrawing(mousePosition)) 
+                {
+                    isBlocked = false;
+                    AddPoint(lastValidPoint); 
+                }
+            }
+            else 
+            {
+                if (CanDraw(mousePosition))
+                {
                     if (points.Count == 0 || Vector2.Distance(mousePosition, points.Last()) > 0.1f)
                     {
                         AddPoint(mousePosition);
                     }
+                }
+                else
+                {
+                    isBlocked = true; 
+                    lastValidPoint = points.Last(); 
+                }
+            }
             }
             if (Input.GetMouseButtonUp(0))
             {
                     EndDrawing();
-                   // levelManager.doneDrawing = true;
                     lineRigibody2D.gravityScale = 1;
+                    dogHeadRigidbody.gravityScale = 1;
             }
         }
 
@@ -129,6 +156,8 @@ public class GameManager : MonoBehaviour
     {
         levelManager.LoadLevel(levelIndex);
         beeHive = GameObject.Find("Stup");
+        dogHead = GameObject.Find("Doghead");
+        dogHeadRigidbody = dogHead.GetComponent<Rigidbody2D>();
     }
 
     public void OnClickNextLevel()
@@ -141,8 +170,11 @@ public class GameManager : MonoBehaviour
         polygonPoints.Clear();
         lineRender.positionCount = 0;
         polygonCollider2D.pathCount = 0;
+        lineRigibody2D.bodyType = RigidbodyType2D.Kinematic;
         lineRender.transform.position = Vector3.zero;
-
+        lineRigibody2D.velocity = Vector2.zero;
+        lineRigibody2D.angularVelocity = 0f;
+        lineRender.transform.rotation = Quaternion.identity;
         for (int i = 0; i < beeList.Count; i++)
         {
             Destroy(beeList[i]);
@@ -177,6 +209,31 @@ public class GameManager : MonoBehaviour
         levelManager.doneDrawing = false;
         StopAllCoroutines();
     }
+    public void OnClickPreviouLevel(){
+        levelManager.doneDrawing = false;
+        levelIndex--;
+        levelManager.LoadLevel(levelIndex);
+        lineRigibody2D.gravityScale = 0;
+        points.Clear();
+        polygonPoints.Clear();
+        lineRender.positionCount = 0;
+        polygonCollider2D.pathCount = 0;
+        lineRigibody2D.bodyType = RigidbodyType2D.Kinematic;
+        lineRender.transform.position = Vector3.zero;
+        lineRender.transform.position = Vector3.zero;
+        lineRigibody2D.velocity = Vector2.zero;
+        lineRigibody2D.angularVelocity = 0f;
+        lineRender.transform.rotation = Quaternion.identity;
+        for (int i = 0; i < beeList.Count; i++)
+        {
+            Destroy(beeList[i]);
+        }
+        beeList.Clear();
+        buttonGroup.gameObject.SetActive(false);
+        nextLevel.gameObject.SetActive(false);
+        announcer.gameObject.SetActive(false);
+        StopAllCoroutines();
+    }
     IEnumerator BeeSpawn()
     {
         int beeCount = 0;
@@ -188,9 +245,31 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
     }
+   bool CanDraw(Vector2 mousePosition)
+{
+    if (points.Count > 0)
+    {
+        Vector2 lastPoint = points.Last();
+        RaycastHit2D hit = Physics2D.Linecast(lastPoint, mousePosition);
+
+        if (hit.collider != null && hit.collider.CompareTag("Obstacle") || hit.collider != null && hit.collider.CompareTag("Dog"))
+        {
+            isBlocked = true; 
+            return false;
+        }
+    }
+
+    isBlocked = false;  // Nếu không có vật cản thì có thể vẽ tiếp
+    return true;
+}
+bool CanResumeDrawing(Vector2 mousePosition)
+{
+    RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+    return hit.collider == null || !hit.collider.CompareTag("Obstacle") || !hit.collider.CompareTag("Dog") ;
+}
     IEnumerator CountDown()
     {
-       yield return new WaitForSeconds(10f);
+       yield return new WaitForSeconds(15f);
        buttonGroup.gameObject.SetActive(true);
        nextLevel.gameObject.SetActive(true);
     }
