@@ -7,16 +7,20 @@ TagManager:
   - Dog
   - Line
   - Obstacle
+  - Bee
+  - Spike
+  - Water
+  - ToxicWater
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Bee
+  - Background
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Bee
+  - Water
+  - Line
   - 
   - 
   - 
@@ -43,4 +47,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1071107973
+    locked: 0
+  - name: Object
+    uniqueID: 3703726909
+    locked: 0
+  - name: UI
+    uniqueID: 3937749255
     locked: 0

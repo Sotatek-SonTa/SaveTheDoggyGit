@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 3799610767728119450}
   - component: {fileID: -6442669978192559331}
   - component: {fileID: 3270118039661719422}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Bee
-  m_TagString: Untagged
+  m_TagString: Bee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -591240387
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 1341971888, guid: decf703818d1ee3498df4428cdfff996, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -167,12 +167,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doghead: {fileID: 0}
+  doghead2: {fileID: 0}
   beeRigigdoby: {fileID: 0}
   speed: 5
   bouceForce: 10
-  randomSpeed: 2
+  randomSpeed: 5
   randomFlyDuration: 3
   randomFlyTimer: 0
+  number: 0
   gameManager: {fileID: 0}
 --- !u!50 &3270118039661719422
 Rigidbody2D:

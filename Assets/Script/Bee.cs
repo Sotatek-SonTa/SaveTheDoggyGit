@@ -5,16 +5,20 @@ using UnityEngine;
 public class Bee : MonoBehaviour
 {
     public Transform doghead;
+    public GameObject doghead2;
     public Rigidbody2D beeRigigdoby;
-    public float speed = 2f;
+    public float speed = 10f;
     public float bouceForce = 10f;
     private bool isFlyingToDog = false;
      public float randomSpeed = 2f;
      public float randomFlyDuration =3f;
      public float randomFlyTimer;
+     public int number;
 
 
     public GameManager gameManager;
+  
+  
 
 
     void Start()
@@ -23,6 +27,8 @@ public class Bee : MonoBehaviour
         gameManager =FindObjectOfType<GameManager>();
         beeRigigdoby = GetComponent<Rigidbody2D>();
         randomFlyTimer = randomFlyDuration;
+        number = Random.Range(0,2);
+        doghead2 = GameObject.Find("Doghead2");
     }
     void Update()
     {
@@ -45,15 +51,30 @@ public class Bee : MonoBehaviour
     void FlyRandomly(){
         Vector2 randormDirection = Random.insideUnitCircle.normalized;
         beeRigigdoby.AddForce(randormDirection*randomSpeed);
-        float angle = Mathf.Atan2(randormDirection.y,randormDirection.x)*Mathf.Rad2Deg;
-       // transform.rotation = Quaternion.Euler(new Vector3(0,0,angle));
     }
     void FlyTowardDog(){
-    beeRigigdoby.velocity = Vector2.zero;
+     if(doghead2 == null){
      Vector2 directiontoDog = (doghead.transform.position - gameObject.transform.position).normalized;
      float angle = Mathf.Atan2(directiontoDog.y, directiontoDog.x) * Mathf.Rad2Deg;
      transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-     beeRigigdoby.AddForce(directiontoDog*speed,ForceMode2D.Force);
+     beeRigigdoby.AddForce(directiontoDog*speed);
+     }
+     else
+     {
+      if(number ==0)
+      {
+       Vector2 directiontoDog = (doghead.transform.position - gameObject.transform.position).normalized;
+       float angle = Mathf.Atan2(directiontoDog.y, directiontoDog.x) * Mathf.Rad2Deg;
+       transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+       beeRigigdoby.AddForce(directiontoDog*speed);
+      }else
+      {
+       Vector2 directiontoDog = (doghead2.transform.position - gameObject.transform.position).normalized;
+       float angle = Mathf.Atan2(directiontoDog.y, directiontoDog.x) * Mathf.Rad2Deg;
+       transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+       beeRigigdoby.AddForce(directiontoDog*speed);
+      }
+     }
     }       
      void OnCollisionEnter2D(Collision2D other) {
       if(other.gameObject.CompareTag("Line")){
@@ -62,11 +83,6 @@ public class Bee : MonoBehaviour
       beeRigigdoby.AddForce(bounceDirection*bouceForce,ForceMode2D.Impulse);
       Vector2 directionToDog = (doghead.position - transform.position).normalized;
       beeRigigdoby.velocity = directionToDog* speed;  
-      }else
-      if(other.gameObject.CompareTag("Dog")){
-         gameManager.buttonGroup.gameObject.SetActive(true);
-         gameManager.tryAgain.gameObject.SetActive(true);
-         gameManager.announcer.text = "Try again";
       }
      }
 }
