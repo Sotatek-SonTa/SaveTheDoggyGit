@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,22 +15,18 @@ public class GameManager : MonoBehaviour
     private List<Vector2> polygonPoints = new List<Vector2>();
     private List<Vector2> points = new List<Vector2>();
     public GameObject bee;
-    public GameObject dogHead;
-    public GameObject dogHead2;
-    public Rigidbody2D dogHeadRigidbody;
-    public Rigidbody2D dogHeadRigidbody2;
     public List<GameObject> beeList;
     public GameObject beeHive;
     public GameObject beeHive2;
     public int levelIndex = 0;
     public LevelManager levelManager;
 
-    public Button nextLevel;
-    public Button tryAgain;
-    public TextMeshProUGUI announcer;
     public Canvas buttonGroup;
     private bool isBlocked = false;
     private Vector2 lastValidPoint;
+
+    public GameObject winGroup;
+    public GameObject lostGroup; 
     void Start()
     {
         polygonCollider2D = lineRender.GetComponent<PolygonCollider2D>();
@@ -47,13 +44,6 @@ public class GameManager : MonoBehaviour
     {
         beeHive = GameObject.Find("Stup");
         beeHive2 = GameObject.Find("Stup2");
-        dogHead = GameObject.Find("Doghead");
-        dogHead2 = GameObject.Find("Doghead2");
-
-        dogHeadRigidbody = dogHead.GetComponent<Rigidbody2D>();
-        if(dogHead2 !=null){
-            dogHeadRigidbody2 = dogHead2.GetComponent<Rigidbody2D>();
-        }
         if (!levelManager.doneDrawing)
         {
             if (Input.GetMouseButtonDown(0))
@@ -96,14 +86,6 @@ public class GameManager : MonoBehaviour
             {
                     EndDrawing();
                     lineRigibody2D.gravityScale = 1;
-                    if(dogHead2==null){
-                        dogHeadRigidbody.gravityScale = 1;
-                    }else
-                    {
-                    dogHeadRigidbody.gravityScale = 1;
-                    dogHeadRigidbody2.gravityScale = 1;
-                    }
-                    
             }
         }
 
@@ -114,6 +96,7 @@ public class GameManager : MonoBehaviour
     }
     void AddPoint(Vector2 newPoint)
     {
+        Vector3 newPointwithZ = new Vector3(newPoint.x,newPoint.y,-1f);
         if (newPoint != Vector2.zero)
         {
             if (points.Count > 0)
@@ -136,7 +119,7 @@ public class GameManager : MonoBehaviour
 
             points.Add(newPoint);
             lineRender.positionCount = points.Count;
-            lineRender.SetPosition(points.Count - 1, newPoint);
+            lineRender.SetPosition(points.Count - 1,newPointwithZ);
         }
 
     }
@@ -163,6 +146,7 @@ public class GameManager : MonoBehaviour
                 for (int i = 0; i < colliderPoints.Length / 2; i++)
                 {
                     Vector3 worldPoint = polygonCollider2D.transform.TransformPoint(colliderPoints[i]);
+                    worldPoint.z = -1f;
                     lineRender.SetPosition(i, worldPoint);
                 }
             }
@@ -173,9 +157,6 @@ public class GameManager : MonoBehaviour
         levelManager.LoadLevel(levelIndex);
         beeHive = GameObject.Find("Stup");
         beeHive2 = GameObject.Find("Stup2");
-        dogHead = GameObject.Find("Doghead");
-        dogHeadRigidbody = dogHead.GetComponent<Rigidbody2D>();
-        dogHeadRigidbody.gravityScale = 0;
     }
 
     public void OnClickNextLevel()
@@ -199,9 +180,8 @@ public class GameManager : MonoBehaviour
         }
         beeList.Clear();
         buttonGroup.gameObject.SetActive(false);
-        announcer.gameObject.SetActive(false);
-        tryAgain.gameObject.SetActive(false);
-        nextLevel.gameObject.SetActive(false);
+        lostGroup.gameObject.SetActive(false);
+        winGroup.gameObject.SetActive(false);
         StopAllCoroutines();
     }
     public void OnClickTryAgain()
@@ -225,8 +205,8 @@ public class GameManager : MonoBehaviour
         }
         beeList.Clear();
         buttonGroup.gameObject.SetActive(false);
-        announcer.gameObject.SetActive(false);
-        tryAgain.gameObject.SetActive(false);
+         lostGroup.gameObject.SetActive(false);
+        winGroup.gameObject.SetActive(false);
         StopAllCoroutines();
     }
     public void OnClickPreviouLevel(){
@@ -250,9 +230,8 @@ public class GameManager : MonoBehaviour
         }
         beeList.Clear();
         buttonGroup.gameObject.SetActive(false);
-        tryAgain.gameObject.SetActive(false);
-        nextLevel.gameObject.SetActive(false);
-        announcer.gameObject.SetActive(false);
+        lostGroup.gameObject.SetActive(false);
+        winGroup.gameObject.SetActive(false);
         StopAllCoroutines();
     }
     IEnumerator BeeSpawn()
@@ -304,6 +283,6 @@ bool CanResumeDrawing(Vector2 mousePosition)
     {
        yield return new WaitForSeconds(10f);
        buttonGroup.gameObject.SetActive(true);
-       nextLevel.gameObject.SetActive(true);
+       winGroup.gameObject.SetActive(true);
     }
 }

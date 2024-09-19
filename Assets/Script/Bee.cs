@@ -14,10 +14,7 @@ public class Bee : MonoBehaviour
      public float randomFlyDuration =3f;
      public float randomFlyTimer;
      public int number;
-
-
     public GameManager gameManager;
-  
   
 
 
