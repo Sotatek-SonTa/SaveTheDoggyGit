@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject winGroup;
     public GameObject lostGroup; 
+    public bool isDead =false;
     void Start()
     {
         polygonCollider2D = lineRender.GetComponent<PolygonCollider2D>();
@@ -88,7 +89,9 @@ public class GameManager : MonoBehaviour
                     lineRigibody2D.gravityScale = 1;
             }
         }
-
+         if(isDead){
+            StopAllCoroutines();
+         }
     }
     void FixedUpdate()
     {
@@ -161,6 +164,7 @@ public class GameManager : MonoBehaviour
 
     public void OnClickNextLevel()
     {
+        isDead = false;
         levelManager.doneDrawing = false;
         levelIndex++;
         levelManager.LoadLevel(levelIndex);
@@ -186,6 +190,7 @@ public class GameManager : MonoBehaviour
     }
     public void OnClickTryAgain()
     {
+        isDead = false;
         levelManager.doneDrawing = false;
         levelManager.LoadLevel(levelIndex);
         lineRigibody2D.gravityScale = 0;
@@ -210,6 +215,7 @@ public class GameManager : MonoBehaviour
         StopAllCoroutines();
     }
     public void OnClickPreviouLevel(){
+        isDead = false;
         levelManager.doneDrawing = false;
         levelIndex--;
         levelManager.LoadLevel(levelIndex);
@@ -279,7 +285,7 @@ bool CanResumeDrawing(Vector2 mousePosition)
     RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
     return hit.collider == null || !hit.collider.CompareTag("Obstacle") || !hit.collider.CompareTag("Dog") || !hit.collider.CompareTag("Water") || !hit.collider.CompareTag("ToxicWater") ;
 }
-    IEnumerator CountDown()
+   public IEnumerator CountDown()
     {
        yield return new WaitForSeconds(10f);
        buttonGroup.gameObject.SetActive(true);

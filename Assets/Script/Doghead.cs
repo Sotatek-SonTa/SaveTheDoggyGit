@@ -28,7 +28,7 @@ public class Doghead : MonoBehaviour
       if( other.gameObject.CompareTag("Bee")){
          gameManager.buttonGroup.gameObject.SetActive(true);
          gameManager.lostGroup.gameObject.SetActive(true);
-         OnDie?.Invoke();
+         gameManager.isDead = true;
       } 
       
       if(other.gameObject.CompareTag("Spike") ){
@@ -36,6 +36,7 @@ public class Doghead : MonoBehaviour
          gameManager.buttonGroup.gameObject.SetActive(true);
          gameManager.lostGroup.gameObject.SetActive(true);
          spriteRenderer.enabled = false;
+         gameManager.isDead = true;
       }
     }
     private void OnTriggerEnter2D(Collider2D other) {
@@ -44,6 +45,7 @@ public class Doghead : MonoBehaviour
          gameManager.buttonGroup.gameObject.SetActive(true);
          gameManager.lostGroup.gameObject.SetActive(true);
          spriteRenderer.enabled = false;
+         gameManager.isDead = true;
       }
     }
 }
