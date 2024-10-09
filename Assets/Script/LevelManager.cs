@@ -1,26 +1,77 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using SaveTheDoggyLevelController;
 
-public class LevelManager : MonoBehaviour
+namespace SaveTheDoggyLevelManager
 {
-    public GameObject[] levels;
-    public GameObject currentLevel;
-    public Transform levelHolder;
-    public bool doneDrawing;
-    
-    void Start()
+    public class LevelManager : MonoBehaviour
     {
-        if(currentLevel !=null){
-            Destroy(currentLevel);
-        }
-    }
-    public void LoadLevel(int levelIndex){
-         if (currentLevel != null)
+        [SerializeField] private List<LevelController> levels;
+        public LevelController currentLevel;
+        public Transform levelHolder;
+        public bool doneDrawing;
+        public event Action DogDead;
+        void Start()
         {
-            Destroy(currentLevel);
+            if (currentLevel != null)
+            {
+                Destroy(currentLevel.gameObject);
+                Destroy(currentLevel);
+            }
+            LoadAllLevel();
         }
-        currentLevel = Instantiate(levels[levelIndex],levelHolder.position,Quaternion.identity);
-        currentLevel.transform.SetParent(levelHolder);
+        void Update()
+        {
+
+        }
+        public void LoadLevel(int levelIndex)
+        {
+            if (currentLevel != null)
+            {
+                Destroy(currentLevel.gameObject);
+                Destroy(currentLevel);
+            }
+            currentLevel = Instantiate(levels[levelIndex], levelHolder.position, Quaternion.identity);
+            currentLevel.transform.SetParent(levelHolder);
+            currentLevel.DogDeadAction += ExecuteDogDead;
+
+        }
+
+        private void ExecuteDogDead()
+        {
+            DogDead?.Invoke();
+        }
+
+        private void LoadAllLevel()
+        {
+            levels = new List<LevelController>(Resources.LoadAll<LevelController>("Levels"));
+            levels.Sort((a, b) =>
+            {
+                int aNumber = ExtractLevelNumber(a.name);
+                int bNumber = ExtractLevelNumber(b.name);
+                return aNumber.CompareTo(bNumber);
+            });
+        }
+        private int ExtractLevelNumber(string levelName)
+        {
+            string numberString = System.Text.RegularExpressions.Regex.Replace(levelName, "[^0-9]", "");
+            int levelNumber = 0;
+
+            if (!string.IsNullOrEmpty(numberString))
+            {
+                int.TryParse(numberString, out levelNumber);
+            }
+
+            return levelNumber;
+        }
+        public void StartLevel()
+        {
+            currentLevel.ActiveLevelStart();
+        }
+
     }
 }
+

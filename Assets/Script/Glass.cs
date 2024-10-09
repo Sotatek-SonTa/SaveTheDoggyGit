@@ -2,20 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Glass : MonoBehaviour
+namespace SaveTheDogGlass
 {
-     public Rigidbody2D rigidbody2D;
-    void Start()
+    public class Glass : MonoBehaviour
     {
-        rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
-        rigidbody2D.gravityScale = 0;
-    }
+        public Rigidbody2D rigidbody2D;
+        void Start()
+        {
+            rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+            rigidbody2D.gravityScale = 0;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-     if(Input.GetMouseButtonUp(0)){
-        rigidbody2D.gravityScale = 1;
-     }   
+        // Update is called once per frame
+        void Update()
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                rigidbody2D.gravityScale = 1;
+            }
+        }
     }
 }
+
