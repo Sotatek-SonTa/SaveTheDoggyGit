@@ -118,7 +118,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 7830143226741968318}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 2e5bfd8a51e4679479504237d6f07591, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -168,9 +168,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mTargets: []
   beeRigigdoby: {fileID: 3270118039661719422}
-  speed: 2
+  speed: 1.5
   bouceForce: 1
-  randomSpeed: 2
+  randomSpeed: 4
   randomFlyDuration: 2
   randomFlyTimer: 0
   number: 0
