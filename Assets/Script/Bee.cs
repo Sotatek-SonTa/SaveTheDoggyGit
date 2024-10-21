@@ -15,6 +15,7 @@ namespace SaveTheDoggyBee
         public float randomFlyDuration = 3f;
         public float randomFlyTimer;
         public int number;
+        public Vector2 randomDirection;
 
 
 
@@ -23,7 +24,7 @@ namespace SaveTheDoggyBee
             beeRigigdoby = GetComponent<Rigidbody2D>();
             randomFlyTimer = randomFlyDuration;
             number = Random.Range(0, mTargets.Count);
-
+            randomDirection = Random.insideUnitCircle.normalized;
         }
         void Update()
         {
@@ -46,15 +47,17 @@ namespace SaveTheDoggyBee
         }
         void FlyRandomly()
         {
-            Vector2 randormDirection = Random.insideUnitCircle.normalized;
-            beeRigigdoby.AddForce(randormDirection * randomSpeed);
+          
+            float angle = Mathf.Atan2(randomDirection.y,randomDirection.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(new Vector3(0,0,angle));
+            beeRigigdoby.AddForce(randomDirection * randomSpeed*Time.deltaTime);
         }
         void FlyTowardDog()
         {
             Vector2 directiontoDog = (mTargets[number].transform.position - gameObject.transform.position).normalized;
             float angle = Mathf.Atan2(directiontoDog.y, directiontoDog.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-            beeRigigdoby.AddForce(directiontoDog * speed);
+            beeRigigdoby.AddForce(directiontoDog * speed*Time.deltaTime);
         }
         void OnCollisionEnter2D(Collision2D other)
         {

@@ -31,6 +31,7 @@ namespace SaveTheDoggyGamemanager
 
         void Start()
         {
+            Input.multiTouchEnabled = false;
             polygonCollider2D = lineRender.GetComponent<PolygonCollider2D>();
             lineRigibody2D = lineRender.GetComponent<Rigidbody2D>();
             lineRigibody2D.gravityScale = 0;
