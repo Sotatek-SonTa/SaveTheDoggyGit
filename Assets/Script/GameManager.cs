@@ -169,19 +169,8 @@ namespace SaveTheDoggyGamemanager
             levelManager.LoadLevel(levelIndex);
             uIManager.SetUpCountDownTime();
         }
-
-        public void OnClickNextLevel()
-        {
-            levelIndex++;
-            Refresh();
-        }
         public void OnClickTryAgain()
         {
-            Refresh();
-        }
-        public void OnClickPreviouLevel()
-        {
-            levelIndex--;
             Refresh();
         }
         public void Refresh()
