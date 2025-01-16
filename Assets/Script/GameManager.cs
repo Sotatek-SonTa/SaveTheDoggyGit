@@ -20,8 +20,6 @@ namespace SaveTheDoggyGamemanager
         private List<Vector2> polygonPoints = new List<Vector2>();
         private List<Vector2> points = new List<Vector2>();
         private Vector2 lastValidPoint;
-
-
         public int levelIndex = 0;
         private bool isBlocked = false;
 
@@ -41,6 +39,7 @@ namespace SaveTheDoggyGamemanager
             polygonPoints.Clear();
             lineRender.positionCount = 0;
             polygonCollider2D.pathCount = 0;
+            lineRender.widthMultiplier = 0.12f;
             levelManager.DogDead += AnnouceDogDead;
             LoadLevel(0);
         }
@@ -48,6 +47,7 @@ namespace SaveTheDoggyGamemanager
         private void AnnouceDogDead()
         {
             uIManager.ShowingLostUI();
+            uIManager.ShutDownCurrentTween();
             StopAllCoroutines();
         }
 
@@ -95,8 +95,8 @@ namespace SaveTheDoggyGamemanager
                 }
                 if (Input.GetMouseButtonUp(0))
                 {
-                        EndDrawing();
-                        lineRigibody2D.gravityScale = 1;
+                    EndDrawing();
+                    lineRigibody2D.gravityScale = 1;
                 }
             }
         }

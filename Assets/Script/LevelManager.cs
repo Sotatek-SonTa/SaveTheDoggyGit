@@ -22,11 +22,7 @@ namespace SaveTheDoggyLevelManager
                 Destroy(currentLevel);
             }
             LoadAllLevel();
-        }
-        void Update()
-        {
-
-        }
+        } 
         public void LoadLevel(int levelIndex)
         {
             if (currentLevel != null)
@@ -37,7 +33,6 @@ namespace SaveTheDoggyLevelManager
             currentLevel = Instantiate(levels[levelIndex], levelHolder.position, Quaternion.identity);
             currentLevel.transform.SetParent(levelHolder);
             currentLevel.DogDeadAction += ExecuteDogDead;
-
         }
 
         private void ExecuteDogDead()

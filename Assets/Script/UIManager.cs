@@ -48,7 +48,7 @@ namespace SaveTheDogUIManager
                 currentTween.Kill();
             }
             timer.SetActive(false);
-            foreach(Image item in starItem)
+            foreach (Image item in starItem)
             {
                 item.color = Color.yellow;
             }
@@ -57,15 +57,19 @@ namespace SaveTheDogUIManager
         {
             timer.SetActive(true);
         }
+        public void ShutDownCurrentTween()
+        {
+            currentTween.Kill();
+        }
         public void ProgressBarEffect()
         {
-           currentTween = progressEffect.DOFillAmount(0, 10f).SetEase(Ease.Linear).OnUpdate(() =>
-            {
-                UpdateProgressbar(progressEffect.fillAmount);
-            }).OnComplete(() =>
-            {
-                timeText.text = "0";
-            });
+            currentTween = progressEffect.DOFillAmount(0, 10f).SetEase(Ease.Linear).OnUpdate(() =>
+             {
+                 UpdateProgressbar(progressEffect.fillAmount);
+             }).OnComplete(() =>
+             {
+                 timeText.text = "0";
+             });
         }
         public void UpdateProgressbar(float fillAmount)
         {
@@ -78,19 +82,19 @@ namespace SaveTheDogUIManager
         {
             if (canDraw)
             {
-                 sliderAmount.value -=0.003f;
-            if (sliderAmount.value < 0.75)
-            {
-                starItem[0].color = Color.black;
-            }
-            if(sliderAmount.value < 0.5)
-            {
-                starItem[1].color = Color.black;
-            }
-            if(sliderAmount.value <0.25)
-            {
-                starItem[2].color = Color.black;
-            }
+                sliderAmount.value -= 0.003f;
+                if (sliderAmount.value < 0.75)
+                {
+                    starItem[0].color = Color.black;
+                }
+                if (sliderAmount.value < 0.5)
+                {
+                    starItem[1].color = Color.black;
+                }
+                if (sliderAmount.value < 0.25)
+                {
+                    starItem[2].color = Color.black;
+                }
             }
         }
     }
