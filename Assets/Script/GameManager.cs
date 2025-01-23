@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using SaveTheDoggyLevelManager;
 using SaveTheDogUIManager;
+using SaveTheDogSoundManager;
 
 namespace SaveTheDoggyGamemanager
 {
@@ -25,6 +26,7 @@ namespace SaveTheDoggyGamemanager
 
         public LevelManager levelManager;
         public UIManager uIManager;
+        public bool isLoose;
 
 
         void Start()
@@ -46,9 +48,16 @@ namespace SaveTheDoggyGamemanager
 
         private void AnnouceDogDead()
         {
+            if(isLoose)
+            {
+                return;
+            }
             uIManager.ShowingLostUI();
             uIManager.ShutDownCurrentTween();
+            SoundManager.Instance.PlaySound(SoundName.LOOSE,0.5f);
+            SoundManager.Instance.StopBGM();
             StopAllCoroutines();
+            isLoose = true;
         }
 
         // Update is called once per frame
@@ -125,6 +134,7 @@ namespace SaveTheDoggyGamemanager
 
                     polygonPoints.Add(point1);
                     polygonPoints.Insert(0, point2);
+                    SoundManager.Instance.PlaySound(SoundName.DRAWLINE,0.2f);
                 }
 
                 points.Add(newPoint);
@@ -137,6 +147,7 @@ namespace SaveTheDoggyGamemanager
         {
             if (points.Count > 1)
             {
+
                 levelManager.doneDrawing = true;
                 polygonCollider2D.pathCount = 1;
                 polygonCollider2D.SetPath(0, polygonPoints.ToArray());
@@ -144,6 +155,7 @@ namespace SaveTheDoggyGamemanager
                 uIManager.ActiveTimer();
                 uIManager.ProgressBarEffect();
                 levelManager.StartLevel();
+                SoundManager.Instance.ChangeBGMSound(SoundName.COUNTDOWN,0.7f);
                 StartCoroutine(CountDown());
             }
         }
@@ -176,6 +188,7 @@ namespace SaveTheDoggyGamemanager
         public void Refresh()
         {
             levelManager.doneDrawing = false;
+            isLoose = false;
             levelManager.LoadLevel(levelIndex);
             uIManager.SetUpCountDownTime();
             lineRigibody2D.gravityScale = 0;
@@ -190,6 +203,7 @@ namespace SaveTheDoggyGamemanager
             lineRender.transform.rotation = Quaternion.identity;
             uIManager.DisappearUI();
             uIManager.SetUpCountDownTime();
+            SoundManager.Instance.ChangeBGMSound(SoundName.BGM,0.3f);
             StopAllCoroutines();
         }
         bool CanDraw(Vector2 mousePosition)
@@ -218,6 +232,13 @@ namespace SaveTheDoggyGamemanager
         {
             yield return new WaitForSeconds(10f);
             uIManager.ShowingWinUI();
+            SoundManager.Instance.PlaySound(SoundName.WIN,0.5f);
+            SoundManager.Instance.StopBGM();
+        }
+          public void OnClickNextLevel()
+        {
+            levelIndex++;
+            Refresh();
         }
     }
 }
