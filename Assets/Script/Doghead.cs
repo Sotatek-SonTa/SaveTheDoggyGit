@@ -32,9 +32,15 @@ namespace SaveTheDoggDoghead
 
             if (other.gameObject.CompareTag("Spike"))
             {
-                spriteRenderer.enabled = true;
+                spriteRenderer.enabled = false;
                 OnDie?.Invoke();
             }
+             if (other.gameObject.CompareTag("BorderLine"))
+            {
+                spriteRenderer.enabled = false;
+                OnDie?.Invoke();
+            }
+            
         }
         private void OnTriggerEnter2D(Collider2D other)
         {

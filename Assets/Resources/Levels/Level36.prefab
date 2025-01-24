@@ -680,6 +680,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 142907657814535303}
     m_Modifications:
+    - target: {fileID: 686088139057024507, guid: 038d59c7175724e4c806a3adab077ace, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 686088139057024507, guid: 038d59c7175724e4c806a3adab077ace, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -591240387
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242798720066628269, guid: 038d59c7175724e4c806a3adab077ace, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242798720066628269, guid: 038d59c7175724e4c806a3adab077ace, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -591240387
+      objectReference: {fileID: 0}
     - target: {fileID: 3710122129144213471, guid: 038d59c7175724e4c806a3adab077ace, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.1026497
@@ -728,9 +744,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4036735046272968725, guid: 038d59c7175724e4c806a3adab077ace, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036735046272968725, guid: 038d59c7175724e4c806a3adab077ace, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -591240387
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269761853254675953, guid: 038d59c7175724e4c806a3adab077ace, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269761853254675953, guid: 038d59c7175724e4c806a3adab077ace, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -591240387
+      objectReference: {fileID: 0}
     - target: {fileID: 5774022159701464809, guid: 038d59c7175724e4c806a3adab077ace, type: 3}
       propertyPath: m_Name
       value: Water
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891885616572084306, guid: 038d59c7175724e4c806a3adab077ace, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891885616572084306, guid: 038d59c7175724e4c806a3adab077ace, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -591240387
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

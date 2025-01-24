@@ -294,9 +294,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4091099573790220842, guid: e0b2f5fa9c681b64aa571cfcb120bdaa, type: 3}
+      propertyPath: m_Size.y
+      value: 5.388546
+      objectReference: {fileID: 0}
     - target: {fileID: 5774022159701464809, guid: e0b2f5fa9c681b64aa571cfcb120bdaa, type: 3}
       propertyPath: m_Name
       value: ToxicWater
+      objectReference: {fileID: 0}
+    - target: {fileID: 7700078861467866165, guid: e0b2f5fa9c681b64aa571cfcb120bdaa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.2519
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -840,9 +848,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4091099573790220842, guid: e0b2f5fa9c681b64aa571cfcb120bdaa, type: 3}
+      propertyPath: m_Size.y
+      value: 5.357826
+      objectReference: {fileID: 0}
     - target: {fileID: 5774022159701464809, guid: e0b2f5fa9c681b64aa571cfcb120bdaa, type: 3}
       propertyPath: m_Name
       value: ToxicWater (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7700078861467866165, guid: e0b2f5fa9c681b64aa571cfcb120bdaa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.2461
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

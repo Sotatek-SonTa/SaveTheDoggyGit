@@ -21,7 +21,7 @@ namespace SaveTheDoggyGamemanager
         private List<Vector2> polygonPoints = new List<Vector2>();
         private List<Vector2> points = new List<Vector2>();
         private Vector2 lastValidPoint;
-        public int levelIndex = 0;
+        public int levelIndex ;
         private bool isBlocked = false;
 
         public LevelManager levelManager;
@@ -43,7 +43,7 @@ namespace SaveTheDoggyGamemanager
             polygonCollider2D.pathCount = 0;
             lineRender.widthMultiplier = 0.12f;
             levelManager.DogDead += AnnouceDogDead;
-            LoadLevel(0);
+            LoadLevel(levelIndex);
         }
 
         private void AnnouceDogDead()

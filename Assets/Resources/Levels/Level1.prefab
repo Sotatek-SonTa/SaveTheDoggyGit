@@ -275,21 +275,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1867559153263228368, guid: c4719639fcc5b194f871d47f7955579a, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2653891846255493132, guid: c4719639fcc5b194f871d47f7955579a, type: 3}
       propertyPath: m_Name
       value: BorderLine
-      objectReference: {fileID: 0}
-    - target: {fileID: 6650077137700492447, guid: c4719639fcc5b194f871d47f7955579a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -8.78
-      objectReference: {fileID: 0}
-    - target: {fileID: 9034171985640567848, guid: c4719639fcc5b194f871d47f7955579a, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

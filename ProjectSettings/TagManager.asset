@@ -11,6 +11,7 @@ TagManager:
   - Spike
   - Water
   - ToxicWater
+  - BorderLine
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Bee
   - Water
   - Line
-  - 
+  - BorderLine
   - 
   - 
   - 
